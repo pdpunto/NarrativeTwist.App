@@ -1,0 +1,127 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Establece la altura del cuerpo a la altura total de la ventana de visualización */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Define la fuente predeterminada para la página */
+    background-color: #f4f4f4; /* Color de fondo para la página completa */
+}
+
+.app-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Añade esta línea para centrar verticalmente */
+    min-height: 100vh;padding: 0px;
+    height: calc(100vh - 40px); /* Establece la altura para que se ajuste a la ventana de visualización menos el padding */
+}
+
+.join-room-main {
+    display: flex; /* Dispone los elementos en línea utilizando flexbox */
+    width: 90%; /* Establece el ancho al 100% del contenedor padre */
+    max-width: 800px; /* Máximo ancho que puede tener el contenido */
+    gap: 20px; /* Espacio entre los elementos del flexbox */
+    position: block; /* Posicionamiento relativo para los elementos hijos */
+    /* Añade un margen top y bottom automático para centrar verticalmente si es necesario */
+    margin-bottom: 250px;
+}
+
+.join-room-search, .public-rooms-section {
+    flex: 1; /* Asigna a los elementos un tamaño flexible basado en el espacio disponible */
+    padding: 20px; /* Espacio interno para cada sección */
+    background-color: white; /* Fondo blanco para las secciones de búsqueda y lista de salas públicas */
+    border-radius: 8px; /* Bordes redondeados para las cajas */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar profundidad */
+}
+
+.join-room-form, .public-rooms-list {
+    margin: 0; /* Anula cualquier margen por defecto */
+    padding: 0; /* Anula cualquier padding por defecto */
+}
+
+.join-room-form label, .public-rooms-list h2 {
+    display: block; /* Hace que los elementos de etiqueta y título se comporten como bloques */
+    margin-bottom: 10px; /* Espacio debajo de las etiquetas y títulos */
+    color: #0b1e2b; /* Color del texto para las etiquetas y títulos */
+    font-weight: bold; /* Hace que el texto sea en negrita */
+}
+
+.join-room-form input, .join-room-form button, .public-rooms-list button {
+    width: 100%; /* Ocupa el 100% del ancho de su contenedor padre */
+    padding: 10px; /* Espacio interior para los campos de texto y botones */
+    margin-bottom: 10px; /* Espacio debajo de cada campo de texto y botón */
+    border: 1px solid #ccc; /* Borde de color gris claro */
+    border-radius: 4px; /* Bordes redondeados para los campos de texto y botones */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho y la altura totales */
+}
+
+.join-room-form button, .public-rooms-list button {
+    background-color: #f8923d; /* Color de fondo para los botones */
+    color: white; /* Color del texto para los botones */
+    border: none; /* Elimina cualquier borde por defecto */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar por encima para indicar que es clickeable */
+    transition: 0.3s ease; /* Transición suave para cambios de color */
+}
+
+.join-room-form button:hover, .public-rooms-list button:hover {
+    background-color: #e67e22; /* Color de fondo al pasar el ratón sobre los botones */
+}
+
+.public-room-item {
+    display: flex; /* Usa flexbox para alinear los elementos internos */
+    flex-direction: column; /* Organiza los elementos internos en una columna */
+    gap: 5px; /* Espacio entre los elementos de la columna */
+    padding: 10px; /* Espacio interior para cada elemento de la lista */
+    border-bottom: 1px solid #eaeaea; /* Borde inferior para separar los elementos de la lista */
+}
+
+.public-rooms-list ul {
+    list-style: none; /* Elimina los estilos de lista por defecto */
+    padding: 0; /* Anula cualquier padding por defecto */
+    margin: 0; /* Anula cualquier margen por defecto */
+}
+
+.public-rooms-list li {
+    display: flex; /* Usa flexbox para alinear los elementos internos */
+    flex-direction: column; /* Organiza los elementos internos en una columna */
+    gap: 5px; /* Espacio entre los elementos de la columna */
+    padding: 10px; /* Espacio interior para cada elemento de la lista */
+    border-bottom: 1px solid #eaeaea; /* Borde inferior para separar los elementos de la lista */
+}
+
+.public-rooms-list li span {
+    color: #555; /* Color de texto para los elementos de la lista */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar por encima para indicar que es clickeable */
+}
+
+.public-rooms-list li:hover {
+    background-color: #f5f5f5; /* Color de fondo al pasar el ratón sobre los elementos de la lista */
+}
+
+.room-code {
+    font-size: 1.2em; /* Tamaño de fuente más grande para el código de la sala */
+    color: #0b1e2b; /* Color del texto para el código de la sala */
+    font-weight: bold; /* Negrita para el código de la sala */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar por encima para indicar que es clickeable */
+}
+
+.public-rooms-title {
+    font-size: 1.2em; /* Tamaño de fuente más grande para el código de la sala */
+    color: #0b1e2b; /* Color del texto para el código de la sala */
+    font-weight: bold; /* Negrita para el código de la sala */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar por encima para indicar que es clickeable */
+}
+
+
+.room-keywords, .room-interactions {
+    color: #f8923d; /* Color del texto para las palabras clave y las interacciones restantes */
+}
+
+/* Títulos en azul oscuro */
+.public-rooms-list li span.title {
+    color: #0b1e2b; /* Color azul oscuro para el título */
+    font-weight: bold; /* Opcional: si quieres que el título sea en negrita */
+}
+
+/* Valores en naranja */
+.public-rooms-list li span.value {
+    color: #f8923d; /* Color naranja para el valor */
+}

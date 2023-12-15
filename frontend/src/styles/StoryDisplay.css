@@ -1,0 +1,68 @@
+.room-header {
+    text-align: center;
+    margin-bottom: 0px;
+    color: #0a1f2b; /* Azul oscuro para el texto */
+  }
+  
+  .story-display {
+    max-height: 300px;
+    width: 80%; /* Anchura más adaptable para diferentes tamaños de pantalla */
+    margin: 20px auto;
+    overflow-y: auto;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .story-display .blurred-text {
+    filter: blur(5px);
+    text-shadow: 0 0 8px rgba(0,0,0,0.5);
+    color: transparent;
+    user-select: none;
+  }
+  
+  .story-display .blurred-text:hover {
+    filter: blur(4px);
+  }
+  
+  .story-display p {
+    margin-bottom: 0;
+    color: #0a1f2b;
+  }
+  
+  /* Estilos de la barra de desplazamiento para WebKit y Firefox */
+  .story-display::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .story-display::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .story-display::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  .story-display::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  .story-display {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  
+  /* Media Queries para adaptar a diferentes tamaños de pantalla */
+  @media (max-width: 768px) {
+    .story-display {
+      width: 95%; /* Más ancho en pantallas pequeñas */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .story-display {
+      width: 100%; /* Ocupa todo el ancho disponible en pantallas muy pequeñas */
+    }
+  }
+  

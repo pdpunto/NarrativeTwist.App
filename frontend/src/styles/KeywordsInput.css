@@ -1,0 +1,37 @@
+.keywords-display {
+  /* Eliminamos el posicionamiento absoluto para mejorar la responsividad */
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0px 0px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 00;
+  max-width: 600px; /* Ancho máximo para el contenedor */
+  margin: 0px auto; /* Centrado con márgenes automáticos */
+}
+
+.keywords-display h3 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #0a1f2b;
+}
+
+.keywords-display .keywords {
+  font-size: 1.2em;
+  color: #0a1f2b;
+}
+
+/* Media Queries para adaptar a diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .keywords-display {
+    max-width: 95%; /* Más ancho en pantallas pequeñas */
+    padding: 10px 15px; /* Ajuste del padding en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .keywords-display {
+    max-width: 100%; /* Ocupa todo el ancho disponible en pantallas muy pequeñas */
+    padding: 10px 10px; /* Reducir aún más el padding */
+  }
+}

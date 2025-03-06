@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  text-align: center;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Posiciona el encabezado de forma fija */
+  top: 0;
+  width: 100%; /* Asegura que el encabezado se extienda a lo ancho de la pantalla */
+  z-index: 1000; /* Eleva el encabezado sobre otros elementos */
+}
+
+
+
+.App-logo {
+  max-width: 120px; /* un máximo que tiene sentido para tu diseño */
+  min-width: 60px; /* un mínimo que tiene sentido para tu diseño */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding-top: 20px;
+}
+
+
+/* Efecto al pasar el cursor por encima, el logo se agranda ligeramente */
+.App-logo:hover {
+  transform: scale(1.05); /* Aumenta el tamaño del logo en un 5% */
+}
+
+/* Efecto al hacer clic, el logo se reduce momentáneamente */
+.App-logo:active {
+  transform: scale(0.9); /* Reduce el tamaño del logo en un 10% */
+}
+
+@media (max-width: 768px) {
+  .App-header {
+    padding-top: 15px;
+  }
+
+  .App-logo {
+    width: 80px; /* O un tamaño fijo que tenga sentido */
+  }
+}
+
+@media (max-width: 480px) {
+  .App-logo {
+    width: 60px; /* O un tamaño fijo que tenga sentido */
+  }
+}
+

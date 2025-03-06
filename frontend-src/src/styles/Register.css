@@ -1,0 +1,115 @@
+/* Contenedor principal de la página de registro */
+.register-container {
+    width: 40%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    display: flex; /* Añadido Flexbox para el diseño */
+    flex-direction: column; /* Orientación vertical de los elementos */
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.register-page-container,
+.register-page-container .form-group label,
+.register-page-container .alternate-action a {
+    color: #2a4857; /* Cambia el color del texto a #2a4857 */
+}
+
+.register-container h2 {
+    text-align: center;
+}
+
+.form-group {
+    width: 100%; /* Ajuste del ancho al 100% del contenedor */
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: calc(100% - 16px); /* Ajuste del ancho teniendo en cuenta el padding */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    position: absolute;
+    top: 5%; /* Ajuste de la posición superior */
+    left: 50%; /* Centrado horizontal */
+    transform: translateX(-50%); /* Ajuste para centrar exactamente */
+    text-align: center;
+}
+
+.form-group:first-child {
+    padding-top: 30px;
+}
+
+button {
+    width: calc(100% - 16px); /* Ajuste del ancho igual que los inputs */
+    padding: 10px;
+    background-color: #eeac65;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d5ae90;
+}
+
+.alternate-action {
+    margin-top: 20px;
+    text-align: center;
+}
+  
+.alternate-action a {
+    color: #2a4857;
+    text-decoration: none;
+}
+  
+.alternate-action a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries para adaptabilidad en diferentes dispositivos */
+
+@media (max-width: 480px) {
+    .register-container,
+    .login-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    /* Estilos específicos para teléfonos en modo retrato y pantallas más pequeñas */
+}
+
+@media (max-width: 768px) {
+    .register-container,
+    .login-container {
+        width: 80%;
+        /* Estilos específicos para teléfonos en modo paisaje y tablets pequeñas */
+    }
+}
+
+@media (max-width: 1024px) {
+    .register-container,
+    .login-container {
+        width: 70%;
+        /* Estilos específicos para tablets en modo retrato y paisaje */
+    }
+}
+
+@media (min-width: 1025px) {
+    .register-container,
+    .login-container {
+        width: 60%;
+        /* Estilos específicos para pantallas y dispositivos más grandes */
+    }
+}

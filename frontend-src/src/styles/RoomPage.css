@@ -1,0 +1,118 @@
+.room-page-content {
+  padding-top: 100px; /* Espacio superior para el contenido debajo del logo */
+  padding-bottom: 50px; /* Espacio inferior */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-code-container {
+  position: fixed;
+  top: 20px;
+  left: 80%; /* Centrar en el eje X */
+  transform: translateX(-50%); /* Ajuste adicional para el centrado */
+  text-align: center;
+  z-index: 10;
+}
+
+.room-code-container h1,.room-code-container .room-code {
+  font-size: 1.2em;
+  color: #2a4857;
+}
+
+.story-display {
+  position: fixed;
+  top: 35%;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.starters-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  position: fixed; /* Se queda fijo en la pantalla */
+  top: 430px;
+}
+
+.keywords-display {
+  text-align: center;
+  color: #2a4857;
+  font-size: 0.8em;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 80%;
+  position: fixed; /* Se queda fijo en la pantalla */
+  top: 190px; /* 20px desde la parte superior de la pantalla */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.keywords-display span {
+  font-weight: bold;
+  color: #eeac65;
+  margin: 0 10px;
+}
+
+/* Media Queries para adaptar a diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .room-page-content {
+    padding-top: 20px;
+    padding-bottom: 30px; /* Reducir el padding en pantallas más pequeñas */
+  }
+
+  .story-display,
+  .keywords-display {
+    max-width: 95%; /* Ampliar en pantallas pequeñas */
+  }
+
+  .room-code-container h1,
+  .room-code-container .room-code {
+    font-size: 1em; /* Fuente más pequeña */
+    
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .room-page-content {
+    padding-top: 250px;
+    padding-bottom: 30px; /* Reducir el padding en pantallas más pequeñas */
+  }
+
+  .story-display{
+    top: 180px;
+    font-size: 0.8em;
+    max-width: 95%; /* Ampliar en pantallas pequeñas */
+  }
+  
+  .keywords-display {
+    top: 50px;
+    font-size: 0.8em;
+    max-width: 95%; /* Ampliar en pantallas pequeñas */
+  }
+
+  .room-code-container {
+    top: 25px; /* Menos espacio en la parte superior */
+    left: 15%;
+    transform: translateX(-50%);
+    width: 90%; /* Permitir que el contenedor sea un poco más ancho */
+  }
+
+  .room-code-container h1,
+  .room-code-container .room-code {
+    font-size: 0.8em; /* Fuente aún más pequeña */
+    
+  }
+
+  .starters-container {
+    top: 300px;
+    font-size: 0.8em;
+  }
+
+}

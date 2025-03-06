@@ -1,0 +1,40 @@
+.verification-reminder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(218, 182, 145, 0.57);
+  color: #2a4857;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 300px;
+  margin: 10px;
+  display: flex; /* Asegura que los hijos se alineen correctamente */
+  flex-direction: column; /* Organiza los hijos en una columna */
+  justify-content: center; /* Centra los hijos verticalmente */
+  align-items: flex-start; /* Alinea los hijos a la izquierda */
+}
+
+.verification-reminder p {
+  margin: 0;
+}
+
+.verification-reminder a {
+  color: #eeac65;
+  text-decoration: none;
+}
+
+.verification-reminder a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .verification-reminder {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .verification-reminder {
+    max-width: 200px;
+  }
+}

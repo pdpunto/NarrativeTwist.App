@@ -1,0 +1,109 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+.lobby-container {
+    position: relative;
+}
+
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.button-group {
+    display: flex;
+    width: 90%;
+    max-width: 600px;
+    justify-content: space-between;
+    position: relative; /* Añadido para posicionamiento relativo */
+    gap: 50px;
+}
+
+.button-group button {
+    padding: 10px;
+    margin: 0; /* Ajustado para eliminar el margen y permitir el control exacto */
+    border: none;
+    border-radius: 5px;
+    background-color: #eeac65;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+    background-color: #d5ae90;
+}
+
+.button-group button.disabled-button {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.verification-info {
+    color: #eeac65;
+    font-size: 0.9em;
+    position: absolute; /* Posiciona absolutamente respecto a su contenedor relativo */
+    bottom: -50px; /* Posición debajo del botón */
+    right: 28%; /* Alinea con el lado izquierdo del contenedor */
+    width: 100%; /* Ajusta el ancho para centrar el texto debajo del botón */
+    text-align: center; /* Centra el texto */
+}
+
+.toggle-sidebar {
+    position: fixed;
+    top: 4%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #2a4857;
+    cursor: pointer;
+    z-index: 1100;
+    width: 40px;
+    height: 40px;
+    transition: right 0.3s ease;
+}
+
+.app-layout .sidebar.visible + .toggle-sidebar {
+    right: 200px;
+}
+
+.toggle-sidebar svg {
+    font-size: 24px;
+}
+
+.toggle-sidebar:hover {
+    background: none;
+}
+
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group button {
+        width: 80%; /* Ajusta el ancho para pantallas más pequeñas */
+        margin-bottom: 10px; /* Añade espacio entre los botones y el mensaje */
+    }
+
+    .verification-info {
+        position: static; /* Restablece a la posición por defecto en pantallas pequeñas */
+        margin-top: 0; /* Espacio después del último botón */
+        text-align: center; /* Alinea el texto a la izquierda en pantallas pequeñas */
+    }
+
+    .toggle-sidebar {
+        right: 5px;
+    }
+}

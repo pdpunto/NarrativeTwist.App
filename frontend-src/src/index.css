@@ -1,0 +1,106 @@
+:root {
+  /* Definición de colores principales */
+  --primary-color: #eeac65;  /* Naranja */
+  --secondary-color: #fff;   /* Blanco */
+  --tertiary-color: #2a4857; /* Azul Oscuro */
+
+  /* Fuentes */
+  --font-primary: 'Roboto', sans-serif;
+  --font-secondary: 'Open Sans', sans-serif;
+
+  /* Tamaños de fuente para diferentes dispositivos */
+  --font-size-small: 14px;
+  --font-size-base: 16px;
+  --font-size-large: 18px;
+
+  /* Breakpoints para media queries */
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  background-color: var(--secondary-color); /* Usando el color blanco como fondo */
+  color: var(--tertiary-color); /* Usando el color azul oscuro para el texto */
+}
+
+/* Estilos específicos para elementos HTML */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color); /* Color naranja para los encabezados */
+  font-family: var(--font-secondary);
+}
+
+a {
+  color: var(--primary-color); /* Enlaces en color naranja */
+  text-decoration: none; /* Eliminar subrayado de enlaces */
+}
+
+/* Estilizar la scrollbar de manera global */
+::-webkit-scrollbar {
+  width: 10px; /* Ancho de la scrollbar */
+}
+
+/* Estilizar el "track" (parte trasera) de la scrollbar */
+::-webkit-scrollbar-track {
+  background: var(--secondary-color); /* Usando el color secundario (blanco) */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilizar el "thumb" (parte deslizable) de la scrollbar */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color); /* Usando el color primario (naranja) */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Cambiar el estilo del "thumb" al pasar el cursor sobre él */
+::-webkit-scrollbar-thumb:hover {
+  background: #d5ae90; /* Un tono más oscuro o diferente de naranja */
+}
+
+/* Media Queries para responsividad */
+@media (max-width: var(--breakpoint-md)) {
+  body {
+      font-size: var(--font-size-small);
+  }
+
+  header, footer {
+      padding: 15px;
+  }
+
+  .main-content {
+      grid-template-columns: 1fr;
+  }
+
+  .menu {
+      display: none;
+  }
+
+  .button-large {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+  }
+}
+
+@media (min-width: var(--breakpoint-lg)) {
+  body {
+      font-size: var(--font-size-large);
+  }
+
+  .navbar {
+      background-color: var(--primary-color);
+  }
+
+  .card {
+      margin: 20px;
+      width: auto;
+  }
+
+  .button-large {
+      width: auto;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+  }
+}

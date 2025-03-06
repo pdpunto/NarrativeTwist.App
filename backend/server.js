@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
@@ -10,14 +10,21 @@ const moment = require('moment');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3001;
+const PORT = 3002;
 
-app.use(cors());
 app.use(express.json());
+
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+  }
+  
+  app.use(cors(corsOptions));
 
 // Configuración de conexión a MySQL
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
@@ -43,13 +50,24 @@ transporter.verify(function(error, success) {
     }
 });
 
+// Función para generar un código de usuario de 6 dígitos
+function generateUserCode() {
+    const digits = '0123456789';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+        code += digits.charAt(Math.floor(Math.random() * digits.length));
+    }
+    return code;
+}
+
 ///////////////////////// Rutas  /////////////////////////////
 app.get('/', (req, res) => {
     res.send('Bienvenido al servidor de NarrativeTwist');
 });
 
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
     const { username, password, email } = req.body;
+    const userCode = generateUserCode();
 
     if (!username || !password || !email) {
         return res.status(400).send('Todos los campos son obligatorios');
@@ -65,9 +83,11 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const verificationToken = crypto.randomBytes(32).toString('hex');
 
-    const insertQuery = 'INSERT INTO users (Username, Password, Email, VerificationToken) VALUES (?, ?, ?, ?)';
+    // Asegúrate de que la consulta SQL incluya el campo UserCode
+    const insertQuery = 'INSERT INTO users (Username, Password, Email, VerificationToken, UserCode) VALUES (?, ?, ?, ?, ?)';
     try {
-        await db.promise().query(insertQuery, [username, hashedPassword, email, verificationToken]);
+        // Incluye userCode en los parámetros que pasas a la consulta SQL
+        await db.promise().query(insertQuery, [username, hashedPassword, email, verificationToken, userCode]);
 
         const emailBody = `
         <!DOCTYPE html>
@@ -77,14 +97,14 @@ app.post('/register', async (req, res) => {
         .email-container {
             width: 100%;
             font-family: Arial, sans-serif;
-            color: #0b1e2b; /* Color de texto azul oscuro de tu app */
+            color: #2a4857; /* Color de texto azul oscuro de tu app */
             text-align: center;
             background-color: #f4f4f4;
         }
         .button {
             padding: 10px 20px;
             color: #ffffff;
-            background-color: #f8923d; /* Color naranja de tu app */
+            background-color: #eeac65; /* Color naranja de tu app */
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
@@ -99,10 +119,10 @@ app.post('/register', async (req, res) => {
         </head>
         <body>
         <div class="email-container">
-        <img src="URL_DEL_LOGO_DE_TU_APP" alt="NarrativeTwist Logo"/>
+        <img src="http://narrativetwist.app/images/logo_meil.png" alt="NarrativeTwist Logo"/>
         <h1>¡Bienvenido a NarrativeTwist!</h1>
         <p>Estás a solo un paso de comenzar tu aventura. Por favor, verifica tu cuenta para activarla:</p>
-        <a href="http://narrativetwist.app/verify/${verificationToken}" class="button">Verificar Cuenta</a>
+        <a href="https://narrativetwist.app/verify/${verificationToken}" class="button">Verificar Cuenta</a>
         </div>
         </body>
         </html>
@@ -124,7 +144,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.get('/verify-account/:token', async (req, res) => {
+app.get('/api/verify-account/:token', async (req, res) => {
     const { token } = req.params;
 
     try {
@@ -147,7 +167,7 @@ app.get('/verify-account/:token', async (req, res) => {
     }
 });
 
-app.get('/check-verification/:userId', verifyToken, async (req, res) => {
+app.get('/api/check-verification/:userId', verifyToken, async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -165,7 +185,7 @@ app.get('/check-verification/:userId', verifyToken, async (req, res) => {
     }
 });
 
-app.post('/resend-verification', async (req, res) => {
+app.post('/api/resend-verification', async (req, res) => {
     const { userId } = req.body;
 
     // Buscar el usuario no verificado por userId para obtener su email y token de verificación
@@ -196,14 +216,14 @@ app.post('/resend-verification', async (req, res) => {
         .email-container {
             width: 100%;
             font-family: Arial, sans-serif;
-            color: #0b1e2b; /* Color de texto azul oscuro de tu app */
+            color: #2a4857; /* Color de texto azul oscuro de tu app */
             text-align: center;
             background-color: #f4f4f4;
         }
         .button {
             padding: 10px 20px;
             color: #ffffff;
-            background-color: #f8923d; /* Color naranja de tu app */
+            background-color: #eeac65; /* Color naranja de tu app */
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
@@ -218,10 +238,10 @@ app.post('/resend-verification', async (req, res) => {
         </head>
         <body>
         <div class="email-container">
-        <img src="URL_DEL_LOGO_DE_TU_APP" alt="NarrativeTwist Logo"/>
+        <img src="https://narrativetwist.app/images/logo_meil.png" alt="NarrativeTwist Logo"/>
         <h1>¡Bienvenido a NarrativeTwist!</h1>
         <p>Estás a solo un paso de comenzar tu aventura. Por favor, verifica tu cuenta para activarla:</p>
-        <a href="http://narrativetwist.app/verify/${verificationToken}" class="button">Verificar Cuenta</a>
+        <a href="https://narrativetwist.app/verify/${verificationToken}" class="button">Verificar Cuenta</a>
         </div>
         </body>
         </html>
@@ -230,10 +250,10 @@ app.post('/resend-verification', async (req, res) => {
 
         // Configura las opciones del email
         const mailOptions = {
-            from: MAIL_USER,
-            to: user.Email,
-            subject: 'Reenvío de Verificación de Cuenta',
-            html: emailBody.replace('URL_DEL_LOGO_DE_TU_APP', 'URL_ACTUALIZADA').replace('${verificationToken}', verificationToken) // Reemplaza correctamente la URL y el token
+            from: process.env.MAIL_USER,
+            to: email,
+            subject: 'Verificación de cuenta',
+            html: emailBody
         };
 
         // Envía el email
@@ -247,18 +267,18 @@ app.post('/resend-verification', async (req, res) => {
 });
 
 
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
 
     // Validaciones básicas
-    if (!username || !password) {
-        return res.status(400).send('Nombre de usuario y contraseña son obligatorios');
+    if (!email || !password) {
+        return res.status(400).send('Email y contraseña son obligatorios');
     }
 
     try {
         // Verificar las credenciales del usuario
-        const userQuery = 'SELECT * FROM users WHERE Username = ?';
-        const [users] = await db.promise().query(userQuery, [username]);
+        const userQuery = 'SELECT * FROM users WHERE Email = ?';
+        const [users] = await db.promise().query(userQuery, [email]);
         if (users.length === 0) {
             return res.status(401).send('Credenciales incorrectas');
         }
@@ -297,7 +317,7 @@ function generateRoomCode(length) {
 }
 
 // Es el endpoint que crea la sala
-app.post('/create-room', verifyToken, async (req, res) => {
+app.post('/api/create-room', verifyToken, async (req, res) => {
     const { maxInteractions, isPublic, keywords } = req.body;
     const userId = req.user.userId;
     const roomCode = generateRoomCode(6);
@@ -329,7 +349,7 @@ app.post('/create-room', verifyToken, async (req, res) => {
 });
 
 // Nuevo endpoint para obtener el total de salas creadas por el usuario
-app.get('/user-total-rooms', verifyToken, async (req, res) => {
+app.get('/api/user-total-rooms', verifyToken, async (req, res) => {
     const userId = req.user.userId;
 
     try {
@@ -346,7 +366,7 @@ app.get('/user-total-rooms', verifyToken, async (req, res) => {
 });
 
 //contador de cuentas creadas por el usuario a la
-app.get('/user-rooms-created-count', verifyToken, async (req, res) => {
+app.get('/api/user-rooms-created-count', verifyToken, async (req, res) => {
     const userId = req.user.userId; // Asegúrate de que estás obteniendo correctamente el ID del usuario autenticado
     const weekStart = moment().startOf('isoWeek').format('YYYY-MM-DD'); // Usa moment.js para obtener el inicio de la semana
 
@@ -369,7 +389,7 @@ app.get('/user-rooms-created-count', verifyToken, async (req, res) => {
     }
 });
 
-app.delete('/delete-room/:roomCode', verifyToken, async (req, res) => {
+app.delete('/api/delete-room/:roomCode', verifyToken, async (req, res) => {
     const { roomCode } = req.params;
     const userId = req.user.userId;
 
@@ -413,7 +433,7 @@ app.delete('/delete-room/:roomCode', verifyToken, async (req, res) => {
 });
 
 
-app.delete('/remove-room-from-list/:roomCode', verifyToken, async (req, res) => {
+app.delete('/api/remove-room-from-list/:roomCode', verifyToken, async (req, res) => {
     const { roomCode } = req.params;
     const userId = req.user.userId;
 
@@ -437,7 +457,7 @@ app.delete('/remove-room-from-list/:roomCode', verifyToken, async (req, res) => 
     }
 });
 
-app.put('/rename-room/:roomCode', verifyToken, async (req, res) => {
+app.put('/api/rename-room/:roomCode', verifyToken, async (req, res) => {
     const { roomCode } = req.params;
     const { customRoomName } = req.body;
     const userId = req.user.userId;
@@ -472,7 +492,7 @@ app.put('/rename-room/:roomCode', verifyToken, async (req, res) => {
 
 
 // Es el endpoint para unirse a sala
-app.post('/join-room', verifyToken, async (req, res) => {
+app.post('/api/join-room', verifyToken, async (req, res) => {
     const { roomCode } = req.body;
     const userId = req.user.userId; // Extraer userId del token JWT
 
@@ -508,7 +528,7 @@ app.post('/join-room', verifyToken, async (req, res) => {
     }
 });
 
-app.get('/public-rooms', async (req, res) => {
+app.get('/api/public-rooms', async (req, res) => {
     try {
         const query = 'SELECT RoomID, RoomCode, Keywords, MaxInteractions FROM gamerooms WHERE IsPublic = 1';
         const [rooms] = await db.promise().query(query);
@@ -520,7 +540,7 @@ app.get('/public-rooms', async (req, res) => {
 });
 
 // Nuevo endpoint para obtener salas del usuario
-app.get('/user-rooms/:userId', verifyToken, async (req, res) => {
+app.get('/api/user-rooms/:userId', verifyToken, async (req, res) => {
     const { userId } = req.params;
 
     const query = `
@@ -541,7 +561,7 @@ app.get('/user-rooms/:userId', verifyToken, async (req, res) => {
 
 
 // Endpoint para añadir contribuciones a una sala específica
-app.post('/add-contribution', verifyToken, async (req, res) => {
+app.post('/api/add-contribution', verifyToken, async (req, res) => {
     const { roomCode, contributionText } = req.body;
     const userId = req.user.userId; // Extraer userId del token JWT
 
@@ -581,11 +601,10 @@ app.post('/add-contribution', verifyToken, async (req, res) => {
 
 
 // Endpoint para obtener los nombres de los usuarios que han contribuido a una sala
-app.get('/room-contributors/:roomCode', verifyToken, async (req, res) => {
+app.get('/api/room-contributors/:roomCode', verifyToken, async (req, res) => {
     const { roomCode } = req.params;
 
     try {
-        // Primero, encuentra el RoomID basado en el RoomCode
         const roomQuery = 'SELECT RoomID FROM gamerooms WHERE RoomCode = ?';
         const [rooms] = await db.promise().query(roomQuery, [roomCode]);
         if (rooms.length === 0) {
@@ -593,26 +612,25 @@ app.get('/room-contributors/:roomCode', verifyToken, async (req, res) => {
         }
         const roomId = rooms[0].RoomID;
 
-        // Luego, recupera los nombres de los usuarios que han contribuido a esa sala
         const contributorsQuery = `
-            SELECT DISTINCT u.Username
+            SELECT DISTINCT u.UserID, u.DisplayName, u.UserCode
             FROM stories s
             JOIN users u ON s.UserID = u.UserID
             WHERE s.RoomID = ?;
         `;
         const [contributors] = await db.promise().query(contributorsQuery, [roomId]);
 
-        // Envía la lista de contribuyentes
-        res.status(200).json({ contributors: contributors.map(c => c.Username) });
+        const formattedContributors = contributors.map(c => c.DisplayName || `Usuario#${c.UserCode}`);
+
+        res.status(200).json({ contributors: formattedContributors });
     } catch (err) {
         console.error('Error al obtener los contribuyentes de la sala:', err);
         res.status(500).send('Error interno del servidor');
     }
 });
 
-
 // Endpoint para obtener la historia actual de una sala y las interacciones restantes
-app.get('/get-story/:roomCode', async (req, res) => {
+app.get('/api/get-story/:roomCode', async (req, res) => {
     const { roomCode } = req.params;
 
     try {
@@ -649,7 +667,7 @@ app.get('/get-story/:roomCode', async (req, res) => {
 });
 
 //endpoint obtener palabras clave
-app.get('/get-keywords/:roomCode', async (req, res) => {
+app.get('/api/get-keywords/:roomCode', async (req, res) => {
     try {
       const roomCode = req.params.roomCode;
       // Reemplaza esta consulta SQL según la estructura de tu base de datos
@@ -668,12 +686,12 @@ app.get('/get-keywords/:roomCode', async (req, res) => {
   });
 
 // info user sidebar
-app.get('/user-info/:userId', verifyToken, async (req, res) => {
+app.get('/api/user-info/:userId', verifyToken, async (req, res) => {
     const { userId } = req.params;
     console.log(`Obteniendo información del usuario para el ID: ${userId}`);
 
     try {
-        const query = 'SELECT Username, DisplayName, ProfilePicture FROM users WHERE UserID = ?';
+        const query = 'SELECT Username, DisplayName, ProfilePicture, UserCode FROM users WHERE UserID = ?';
         console.log(`Ejecutando consulta: ${query} con UserId: ${userId}`);
         const [users] = await db.promise().query(query, [userId]);
         
@@ -691,7 +709,7 @@ app.get('/user-info/:userId', verifyToken, async (req, res) => {
 });
 
 // actualizar info user sidebar
-app.put('/update-user/:userId', verifyToken, async (req, res) => {
+app.put('/api/update-user/:userId', verifyToken, async (req, res) => {
     const { userId } = req.params;
     const { Username, profilePicture } = req.body; // Asumiendo que estos datos vienen del cuerpo de la solicitud
 
@@ -706,7 +724,7 @@ app.put('/update-user/:userId', verifyToken, async (req, res) => {
 });
 
 // Obtener información del usuario para la página de ajustes
-app.get('/user-settings/:userId', verifyToken, async (req, res) => {
+app.get('/api/user-settings/:userId', verifyToken, async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -724,7 +742,7 @@ app.get('/user-settings/:userId', verifyToken, async (req, res) => {
 });
 
 // Actualizar información del usuario
-app.put('/update-user-settings/:userId', verifyToken, async (req, res) => {
+app.put('/api/update-user-settings/:userId', verifyToken, async (req, res) => {
     const { userId } = req.params;
     const { username, newPassword, displayName, profilePicture, passwordActual } = req.body;
 
@@ -777,6 +795,44 @@ app.put('/update-user-settings/:userId', verifyToken, async (req, res) => {
     } catch (err) {
         console.error('Error al actualizar información del usuario:', err);
         res.status(500).send('Error al procesar la solicitud');
+    }
+});
+
+app.post('/api/anonymize-user/:userId', verifyToken, async (req, res) => {
+    const { userId } = req.params;
+    const { passwordActual } = req.body; // La contraseña actual enviada desde el cliente
+
+    if (!passwordActual) {
+        return res.status(400).send('La contraseña actual es necesaria para eliminar la cuenta.');
+    }
+
+    try {
+        // Primero, obtén la contraseña almacenada para este usuario
+        const [user] = await db.promise().query(
+            'SELECT Password FROM users WHERE UserID = ?',
+            [userId]
+        );
+
+        if (user.length === 0) {
+            return res.status(404).send('Usuario no encontrado.');
+        }
+
+        // Verifica que la contraseña proporcionada sea correcta
+        const isMatch = await bcrypt.compare(passwordActual, user[0].Password);
+        if (!isMatch) {
+            return res.status(401).send('Contraseña incorrecta.');
+        }
+
+        // Si la contraseña es correcta, procede a "eliminar" la cuenta
+        await db.promise().query(
+            "UPDATE users SET Username = '', Password = '', Email = '', DisplayName = '', ProfilePicture = '', VerificationToken = '', IsVerified = 0 WHERE UserID = ?",
+            [userId]
+          );
+
+        res.send('Cuenta eliminada con éxito.');
+    } catch (error) {
+        console.error('Error al eliminar la cuenta:', error);
+        res.status(500).send('Error interno del servidor.');
     }
 });
 

@@ -1,0 +1,55 @@
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative; /* Añade posición relativa aquí */
+}
+
+
+.login-container h1 {
+    text-align: center;
+    color: #2a4857; /* Azul oscuro para el texto */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2a4857; /* Azul oscuro para las etiquetas */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    color: #2a4857; /* Azul oscuro para el texto del input */
+}
+
+.error-message {
+    color: red;
+    position: absolute; /* Posicionamiento absoluto */
+    top: 0; /* Posición en la parte superior del contenedor .login-container */
+    left: 0; /* Alineación a la izquierda */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    text-align: center; /* Centra el texto */
+}
+
+.form-group:first-child {
+    padding-top: 30px; /* Espacio en la parte superior del primer grupo de formulario */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #eeac65; /* Naranja para el botón */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d5ae90; /* Naranja más oscuro al pasar el cursor */
+}

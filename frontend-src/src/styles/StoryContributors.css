@@ -1,0 +1,66 @@
+.app-layout {
+  position: relative;
+}
+
+.story-contributors {
+  position: absolute;
+  top: 100px; /* Ajusta este valor según la altura de tu encabezado */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; /* Asegúrate de que sea menor que el z-index del encabezado */
+}
+
+  
+  .story-contributors h3 {
+    color: #2a4857;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  p {
+    position: fixed;
+    top: 80%;
+    color: #2a4857;
+    font-size: 1.em;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .story-contributors ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .story-contributors li {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #2a4857;
+    text-align: center;
+    
+  }
+  
+  .story-contributors li:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Media Queries para adaptar a diferentes tamaños de pantalla */
+  @media (max-width: 768px) {
+    .story-contributors {
+      max-width: 95%; /* Más ancho en pantallas pequeñas */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .story-contributors {
+      position: fixed;
+      top: 70%;
+      max-width: 100%; /* Ocupa todo el ancho disponible en pantallas muy pequeñas */
+    }
+  }
+  

@@ -1,0 +1,51 @@
+<ul className="salas-lista">
+              {salasCreadas.map(sala => (
+                <li key={sala.RoomID} onMouseEnter={() => handleMouseEnter(sala.RoomID)} onMouseLeave={handleMouseLeave}>
+                  {isEditing === sala.RoomID ? (
+                    <input
+                      type="text"
+                      value={customName}
+                      onChange={handleCustomNameChange}
+                      onBlur={() => submitRename(sala.RoomCode)}
+                      onKeyPress={(e) => e.key === 'Enter' && submitRename(sala.RoomCode)}
+                      className="sala-edit-input" // Asegúrate de tener esta clase definida en tu CSS para estilos
+                    />
+                  ) : (
+                    <div className={`sala-info ${hoveredSala === sala.RoomID ? 'hovered' : ''}`} onClick={() => navigateToRoom(sala.RoomCode)}>
+                      <span className="sala-name">{sala.CustomRoomName || sala.RoomCode}</span>
+                      <span className="sala-code">{sala.RoomCode}</span>
+                    </div>
+                  )}
+                  <button className="icon-button more-options-button" onClick={() => toggleRoomActions(sala.RoomID)}>
+                    <FontAwesomeIcon icon={faEllipsisH} />
+                  </button>
+                  {selectedRoomId === sala.RoomID && (
+                    <div className="sala-actions">
+                      <button onClick={() => startEditing(sala)} className="icon-button">
+                        <FontAwesomeIcon icon={faPencilAlt} />
+                      </button>
+                      <button onClick={() => eliminarSala(sala.RoomID)} className="icon-button">
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+                <div className="title-with-button">
+                    <button onClick={() => navigate('/join-room')} className="icon-button">
+                        <FontAwesomeIcon icon={faSearch} style={{ color: '#2a4857' }} />
+                    </button>
+                    <h3>Otras Salas</h3>
+                </div>
+    
+                <ul className="salas-lista">
+                {salasParticipadas.map(sala => (
+                    <li key={sala.RoomID}>
+                        <Link to={`/room/${sala.RoomCode}`}>{sala.RoomCode}</Link>
+                        <button onClick={() => esconderSala(sala.RoomCode)} className="icon-button">
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                    </li>
+                ))}
+                </ul>

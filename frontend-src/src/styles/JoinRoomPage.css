@@ -1,0 +1,163 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    min-height: 100vh;
+    width: 100%;
+}
+
+.join-room-main {
+    width: 100%;
+    max-width: 50%;
+    display: flex;
+    flex-direction: row; /* Para escritorio */
+    justify-content: center; /* Centrado horizontal de elementos internos */
+    align-items: center; /* Centrado vertical de elementos internos */
+    /* Se ha eliminado la propiedad 'top' para prevenir desplazamiento no deseado */
+}
+
+.join-room-search, .public-rooms-section {
+    flex: 1;
+    padding: 20px;
+    
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.join-room-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea los elementos hijos horizontalmente */
+    width: 100%;
+}
+
+.join-room-form label, .public-rooms-list h2 {
+    display: block;
+    margin-bottom: 10px;
+    color: #2a4857;
+    font-weight: bold;
+}
+
+.join-room-form input, .join-room-form button {
+    width:60%; /* Ajuste para compensar el borde y padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.join-room-form button {
+    background-color: #eeac65;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.join-room-form button:hover {
+    background-color: #d5ae90;
+}
+
+.public-room-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.public-rooms-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.public-rooms-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.public-rooms-list li span {
+    color: #555;
+    cursor: pointer;
+}
+
+
+.room-code {
+    font-size: 1.2em;
+    color: #2a4857;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.public-rooms-title {
+    font-size: 1.2em;
+    color: #2a4857;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.room-keywords, .room-interactions {
+    color: #eeac65;
+}
+
+.public-rooms-list li span.title {
+    color: #2a4857;
+    font-weight: bold;
+}
+
+.public-rooms-list li span.value {
+    color: #eeac65;
+}
+
+@media (max-width: 768px) {
+    .join-room-main {
+      /* Ajusta el margen inferior si es necesario para dispositivos tablets */
+      margin-bottom: 50px; /* Por ejemplo */
+    }
+    .join-room-search, .public-rooms-section {
+      /* Ajusta el ancho para tablets */
+      width: 90%; /* Por ejemplo */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .app-layout {
+      /* Centrado vertical y horizontal */
+      justify-content: flex-start; /* Cambia a 'flex-start' para alinear al principio */
+      align-items: center;
+    }
+    .join-room-main {
+      /* Asegúrate de que la dirección sea en columna y centra los elementos */
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20%; /* Ajusta esto para alinear mejor en la pantalla */
+      width: 100%;
+      max-width: none; /* Elimina la restricción de max-width */
+    }
+    .join-room-search, .public-rooms-section {
+      /* Ajuste del ancho y el margen para móviles */
+      width: 100%; /* Usa el 100% del ancho para aprovechar el espacio */
+      margin: auto; /* Centra automáticamente dentro del 'join-room-main' */
+      padding: 15px; /* Ajusta el padding si es necesario */
+    }
+    .join-room-form button {
+      /* Botón del mismo ancho que el input */
+      width: 100%;
+    }
+    /* Elimina las propiedades 'top' y 'transform' que puedan desplazar los elementos */
+  }
+  

@@ -1,0 +1,99 @@
+.contribution-form {
+  max-width: 650px;
+  width: calc(100% - 40px); /* Ajusta el ancho para tener en cuenta el padding */
+  padding: 20px; /* Padding añadido para el contenido interno */
+  border-radius: 8px;
+  position: fixed;
+  bottom: 0px; /* Ajusta el formulario 20px arriba del margen inferior de la pantalla */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100; /* Asegúrate de que está por encima de otros elementos */
+  
+}
+
+.contribution-form .form-group {
+  margin-bottom: 15px; /* Espacio debajo del grupo de formulario */
+  position: relative;
+}
+
+.contribution-form .form-group textarea {
+  width: calc(100% - 64px); /* Ajusta el ancho para dejar espacio para el botón */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 80px;
+  resize: none;
+}
+
+.contribution-form .form-group button {
+  position: absolute;
+  right: 1px; /* 20px desde la derecha para estar alineado con el padding del formulario */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #eeac65;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contribution-form .form-group button:hover {
+  background-color: #d5ae90;
+}
+
+.interactions-counter,
+.character-counter {
+  position: fixed; /* Se queda fijo en la pantalla */
+  bottom: 70px; /* 70px del margen inferior para estar justo por encima del formulario */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #757575;
+  font-size: 0.9em;
+  z-index: 101; /* Asegúrate de que los contadores estén por encima del formulario */
+}
+
+/* Estilos para las barras de desplazamiento personalizadas */
+.contribution-form::-webkit-scrollbar,
+.contribution-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contribution-form::-webkit-scrollbar-track,
+.contribution-textarea::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+.contribution-form::-webkit-scrollbar-thumb,
+.contribution-textarea::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 4px;
+}
+
+.contribution-form::-webkit-scrollbar-thumb:hover,
+.contribution-textarea::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+.contribution-form {
+  scrollbar-width: thin;
+  scrollbar-color: #c0c0c0 #e0e0e0;
+}
+
+/* Media Queries para adaptar a diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .contribution-form {
+    max-width: 95%; /* Más ancho en pantallas pequeñas */
+  }
+}
+
+@media (max-width: 480px) {
+  .contribution-form {
+    max-width: 100%; /* Ocupa todo el ancho disponible en pantallas muy pequeñas */
+  }
+}

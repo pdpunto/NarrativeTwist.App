@@ -1,0 +1,120 @@
+/* Contenedor principal de la página de inicio de sesión */
+.login-page-container {
+    display: flex; /* Usa Flexbox para el diseño */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    height: 100vh; /* Altura completa de la ventana del navegador */
+    padding: 0 10%; /* Ajusta el espacio lateral */
+}
+
+/* Contenedores para el logo y el formulario de inicio de sesión */
+.login-page-container .logo-container,
+.login-page-container .login-container {
+    display: flex; /* Usa Flexbox para el diseño */
+    flex-direction: column; /* Orientación vertical de los elementos */
+    justify-content: center; /* Centra los elementos verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente */
+    flex-basis: 40%; /* Cada contenedor ocupa el 40% del espacio disponible */
+}
+
+.login-page-container,
+.login-page-container .form-group label,
+.login-page-container .alternate-action a {
+    color: #2a4857; /* Cambia el color del texto a #2a4857 */
+}
+
+/* Estilos para la imagen del logo */
+.login-page-container .logo-container img {
+    max-width: 70%; /* Ancho máximo del logo */
+    height: auto; /* Altura se ajusta automáticamente para mantener la proporción */
+    display: block; /* Muestra la imagen como bloque */
+    margin: auto; /* Centra la imagen horizontalmente */
+}
+
+/* Contenedor del formulario de inicio de sesión */
+.login-page-container .login-container {
+    max-width: 40%; /* Ancho máximo del contenedor */
+}
+
+/* Estilos para el formulario de inicio de sesión */
+.login-page-container .login-container form {
+    width: 100%; /* Ancho del formulario se ajusta al contenedor */
+    padding: 20px; /* Espacio interior del formulario */
+    border-radius: 8px; /* Bordes redondeados del formulario */
+}
+
+/* Estilos para campos de formulario y botones */
+.login-page-container .login-container form .form-group input,
+.login-page-container .login-container form button {
+    width: calc(100% - 16px); /* Ajuste del ancho teniendo en cuenta el padding */
+    padding: 8px; /* Espacio interior para los elementos input y button */
+    margin-bottom: 10px; /* Espacio debajo de cada elemento input y button */
+}
+
+/* Estilos adicionales para los botones */
+.login-page-container .login-container form button {
+    background-color: #eeac65; /* Color de fondo de los botones */
+    color: white; /* Color del texto */
+    border: none; /* Sin bordes para los botones */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor en forma de mano al pasar el ratón */
+    transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+}
+
+/* Estilos para los botones al pasar el ratón */
+.login-page-container .login-container form button:hover {
+    background-color: #d5ae90; /* Cambia el color de fondo al pasar el ratón */
+}
+
+/* Contenedor para imágenes adicionales */
+.login-page-container .image-container {
+    text-align: center; /* Centra el texto e imágenes */
+    padding-top: 30px; /* Espacio superior */
+}
+
+/* Estilos para imágenes dentro del contenedor */
+.login-page-container .image-container img {
+    width: 50%; /* Ancho de la imagen */
+    display: block; /* Muestra la imagen como bloque */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+/* Estilos para títulos con botones */
+.login-page-container .title-with-button {
+    display: flex; /* Usa Flexbox para el diseño */
+    align-items: center; /* Alinea los elementos verticalmente */
+    justify-content: space-between; /* Espaciado entre el título y el botón */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+/* Estilos para el título */
+.login-page-container .title-with-button .title {
+    font-size: 18px; /* Tamaño del texto */
+    color: #FFF; /* Color del texto */
+    flex: 1; /* El título ocupa el espacio disponible */
+}
+
+/* Estilos para el botón con ícono */
+.login-page-container .title-with-button .icon-button {
+    background: none; /* Sin fondo */
+    border: none; /* Sin bordes */
+    cursor: pointer; /* Cursor en forma de mano al pasar el ratón */
+    color: #eeac65; /* Color del ícono */
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .login-page-container {
+        flex-direction: column; /* Cambio a disposición vertical */
+    }
+
+    .login-page-container .logo-container,
+    .login-page-container .login-container {
+        flex-basis: auto; /* Ajuste automático del tamaño */
+        max-width: 80%; /* Ancho máximo en pantallas pequeñas */
+    }
+
+    .login-page-container .logo-container img {
+        width: 80%; /* Ajuste del tamaño del logo */
+    }
+}
